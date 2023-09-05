@@ -7,15 +7,16 @@
  *                  /_____/
  */
 
-#ifndef APP_PRIVATE_H_
-#define APP_PRIVATE_H_
+#ifndef APP_INTERFACE_H_
+#define APP_INTERFACE_H_
 
-#include "GearBox_Interface.h"
-
+#include "CPU_Configuration.h"
+#include "SPI_Interface.h"
+#include "EEPROM_Interface.h"
 /*All Includes Here*/
 
-ERROR_STATE Application_Initialize(void);
+ERROR_STATE ApplicationS_Initialize(void);
+ERROR_STATE MAINS_Application(void);
+void EEPROM_READ_WRITE(void);
 
-ERROR_STATE MAIN_Application(void);
-
-#endif /* APP_PRIVATE_H_ */
+#endif /* APP_INTERFACE_H_ */
