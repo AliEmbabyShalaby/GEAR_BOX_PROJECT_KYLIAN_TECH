@@ -10,8 +10,8 @@
 #ifndef YELLOW_LED_PRIVATE_H_
 #define YELLOW_LED_PRIVATE_H_
 
-// Configuration:
 #include "CPU_Configuration.h"
+#include "DIO_Interface.h"
 
 /************************************************************************/
 /*                         Data Definitions:                            */
@@ -24,15 +24,6 @@
 
 #define YELLOW_LED_HIGH		DIO_HIGH
 #define YELLOW_LED_LOW		DIO_LOW
-
-/************************************************************************/
-/*                      Functions Prototypes                            */
-/************************************************************************/
-
-void YELLOW_LED_Initializ(void);
-void YELLOW_LED_ON(void);
-void YELLOW_LED_OFF(void);
-void YELLOW_LED_TGL(void);
 
 
 #endif /* YELLOW_LED_PRIVATE_H_ */

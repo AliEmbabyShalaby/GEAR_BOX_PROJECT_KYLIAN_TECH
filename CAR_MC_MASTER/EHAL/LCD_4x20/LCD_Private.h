@@ -9,9 +9,10 @@
 
 #ifndef LCD_PRIVATE_H_
 #define LCD_PRIVATE_H_
-// Configuration:
+
 #include "CPU_Configuration.h"
 #include "DIO_Interface.h"
+
 /************************************************************************/
 /*                         Data Definitions:                            */
 /************************************************************************/
@@ -32,6 +33,9 @@
 #define LCD_LOW  DIO_LOW
 #define LCD_HIGH DIO_HIGH
 
+
+#define DICIMAL_POINT_ACCURACY 8
+
 typedef enum{
 	LCD_LINE1,
 	LCD_LINE2,
@@ -39,24 +43,6 @@ typedef enum{
 	LCD_LINE4
 }LCD_LINES;
 
-#define DICIMAL_POINT_ACCURACY 8
 
-/************************************************************************/
-/*                      Functions Prototypes                            */
-/************************************************************************/
-
-ERROR_STATE LCD_Initialize(void);
-ERROR_STATE LCD_Curser_OFF(void);
-ERROR_STATE LCD_Curser_ON(void);
-ERROR_STATE LCD_Clear(void);
-ERROR_STATE LCD_Write_Command(UINT8_t command);
-ERROR_STATE LCD_Write_Character(UINT8_t character);
-ERROR_STATE LCD_Write_String(const char *str);
-ERROR_STATE LCD_Write_Number(SINT64_t number);
-ERROR_STATE LCD_Write_FloatNumber(fint64_t Fnumber);
-ERROR_STATE LCD_Write_SpecialCharacter(UINT8_t Scharcter);
-ERROR_STATE LCD_LINE_position(LCD_LINES row , SINT8_t column);
-
-void load_custom_characters(void);
 
 #endif /* LCD_PRIVATE_H_ */

@@ -7,12 +7,15 @@
  *                           /_____/                /_____/
  */
 
-// Configuration:
+#ifndef BLUE_LED_PRIVATE_H_
+#define BLUE_LED_PRIVATE_H_
+
 #include "CPU_Configuration.h"
 #include "DIO_Interface.h"
 
-#ifndef BLUE_LED_PRIVATE_H_
-#define BLUE_LED_PRIVATE_H_
+/************************************************************************/
+/*                         Data Definitions:                            */
+/************************************************************************/
 
 #define BLUE_LED_PIN		DIO_PIN5
 #define BLUE_LED_PORT		DIO_PORTA
@@ -22,13 +25,6 @@
 #define BLUE_LED_HIGH		DIO_HIGH
 #define BLUE_LED_LOW		DIO_LOW
 
-/************************************************************************/
-/*                      Functions Prototypes                            */
-/************************************************************************/
 
-ERROR_STATE BLUE_LED_Initializ(void);
-ERROR_STATE BLUE_LED_ON(void);
-ERROR_STATE BLUE_LED_OFF(void);
-ERROR_STATE BLUE_LED_TGL(void);
 
 #endif /* BLUE_LED_PRIVATE_H_ */

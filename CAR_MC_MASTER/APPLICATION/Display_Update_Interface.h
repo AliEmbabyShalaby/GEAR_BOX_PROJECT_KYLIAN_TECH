@@ -13,15 +13,15 @@
 #include "CPU_Configuration.h"
 #include "SPI_Interface.h"
 
-#include "KEYPAD_Private.h"
-#include "LCD_Private.h"
-#include "Engine_Limit_Sensor_Private.h"
-#include "Engine_Sensor_Private.h"
+#include "KEYPAD_Interface.h"
+#include "LCD_Interface.h"
+#include "Engine_Limit_Sensor_Interface.h"
+#include "Engine_Sensor_Interface.h"
 
-#include "GREEN_LED_Private.h"
-#include "BLUE_LED_Private.h"
-#include "YELLOW_LED_Private.h"
-#include "Buzzer_Private.h"
+#include "GREEN_LED_Interface.h"
+#include "BLUE_LED_Interface.h"
+#include "YELLOW_LED_Interface.h"
+#include "Buzzer_Interface.h"
 
 typedef enum{
 	Parking_Mode,
@@ -38,8 +38,8 @@ typedef enum{
 
 void Current_Speed_value(SINT16_t *Speed);
 void Main_LCD_Display(MODES Mode) ;
-void TGL_Limit_Speed();
-void SET_LIMIT_SPEED();
+void TGL_Limit_Speed(void);
+void SET_LIMIT_SPEED(void);
 void Display_Letter(Letters letter);
 
 #endif /* DISPLAY_UPDATE_INTERFACE_H_ */

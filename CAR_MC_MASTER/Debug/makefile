@@ -13,7 +13,8 @@ RM := rm -rf
 -include MCAL/DIO/subdir.mk
 -include MCAL/ADC/subdir.mk
 -include EHAL/YELLOW\ LED/subdir.mk
--include EHAL/Potentiometer/subdir.mk
+-include EHAL/Potentiometer/Engine_Sensor/subdir.mk
+-include EHAL/Potentiometer/Engine_Limit_Sensor/subdir.mk
 -include EHAL/LCD_4x20/subdir.mk
 -include EHAL/KEYPAD\ Driver/subdir.mk
 -include EHAL/GREEN\ LED/subdir.mk

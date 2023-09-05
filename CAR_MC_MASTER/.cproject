@@ -42,9 +42,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/BLUE LED}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/GREEN LED}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/LCD_4x20}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/Potentiometer}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/RED LED}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/YELLOW LED}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/Potentiometer/Engine_Limit_Sensor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/Potentiometer/Engine_Sensor}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/APPLICATION}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.compiler.winavr.input.1287694829" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>

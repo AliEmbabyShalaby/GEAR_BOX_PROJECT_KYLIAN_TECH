@@ -9,13 +9,13 @@ c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o (exit)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
-                              ./EHAL/LCD_4x20/LCD_Interface.o (__do_copy_data)
+                              ./EHAL/LCD_4x20/LCD_Program.o (__do_copy_data)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
                               ./MCAL/SPI/SPI_Program.o (__do_clear_bss)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divdi3.o)
-                              ./EHAL/LCD_4x20/LCD_Interface.o (__divdi3)
+                              ./EHAL/LCD_4x20/LCD_Program.o (__divdi3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_moddi3.o)
-                              ./EHAL/LCD_4x20/LCD_Interface.o (__moddi3)
+                              ./EHAL/LCD_4x20/LCD_Program.o (__moddi3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divdi3.o) (__mulsi3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
@@ -48,15 +48,15 @@ LOAD ./MCAL/USART/UART_Program.o
 LOAD ./MCAL/SPI/SPI_Program.o
 LOAD ./MCAL/DIO/DIO_Program.o
 LOAD ./MCAL/ADC/ADC_Program.o
-LOAD ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
-LOAD ./EHAL/Potentiometer/Engine_Limit_Sensor_Program.o
-LOAD ./EHAL/Potentiometer/Engine_Sensor_Program.o
-LOAD ./EHAL/LCD_4x20/LCD_Interface.o
-LOAD ./EHAL/KEYPAD Driver/KEYPAD_Interface.o
-LOAD ./EHAL/GREEN LED/GREEN_LED_Interface.o
-LOAD ./EHAL/Buzzer/Buzzer_Interface.o
-LOAD ./EHAL/BLUE LED/BLUE_LED_Interface.o
-LOAD ./APPLICATION/APP_Interface.o
+LOAD ./EHAL/YELLOW LED/YELLOW_LED_Program.o
+LOAD ./EHAL/Potentiometer/Engine_Sensor/Engine_Sensor_Program.o
+LOAD ./EHAL/Potentiometer/Engine_Limit_Sensor/Engine_Limit_Sensor_Program.o
+LOAD ./EHAL/LCD_4x20/LCD_Program.o
+LOAD ./EHAL/KEYPAD Driver/KEYPAD_Program.o
+LOAD ./EHAL/GREEN LED/GREEN_LED_Program.o
+LOAD ./EHAL/Buzzer/Buzzer_Program.o
+LOAD ./EHAL/BLUE LED/BLUE_LED_Program.o
+LOAD ./APPLICATION/APP_Program.o
 LOAD ./APPLICATION/Display_Update_Program.o
 LOAD ./APPLICATION/GearBox_Program.o
 LOAD ./main.o
@@ -234,15 +234,15 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .text          0x00000092        0x0 ./MCAL/SPI/SPI_Program.o
  .text          0x00000092        0x0 ./MCAL/DIO/DIO_Program.o
  .text          0x00000092        0x0 ./MCAL/ADC/ADC_Program.o
- .text          0x00000092        0x0 ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
- .text          0x00000092        0x0 ./EHAL/Potentiometer/Engine_Limit_Sensor_Program.o
- .text          0x00000092        0x0 ./EHAL/Potentiometer/Engine_Sensor_Program.o
- .text          0x00000092        0x0 ./EHAL/LCD_4x20/LCD_Interface.o
- .text          0x00000092        0x0 ./EHAL/KEYPAD Driver/KEYPAD_Interface.o
- .text          0x00000092        0x0 ./EHAL/GREEN LED/GREEN_LED_Interface.o
- .text          0x00000092        0x0 ./EHAL/Buzzer/Buzzer_Interface.o
- .text          0x00000092        0x0 ./EHAL/BLUE LED/BLUE_LED_Interface.o
- .text          0x00000092        0x0 ./APPLICATION/APP_Interface.o
+ .text          0x00000092        0x0 ./EHAL/YELLOW LED/YELLOW_LED_Program.o
+ .text          0x00000092        0x0 ./EHAL/Potentiometer/Engine_Sensor/Engine_Sensor_Program.o
+ .text          0x00000092        0x0 ./EHAL/Potentiometer/Engine_Limit_Sensor/Engine_Limit_Sensor_Program.o
+ .text          0x00000092        0x0 ./EHAL/LCD_4x20/LCD_Program.o
+ .text          0x00000092        0x0 ./EHAL/KEYPAD Driver/KEYPAD_Program.o
+ .text          0x00000092        0x0 ./EHAL/GREEN LED/GREEN_LED_Program.o
+ .text          0x00000092        0x0 ./EHAL/Buzzer/Buzzer_Program.o
+ .text          0x00000092        0x0 ./EHAL/BLUE LED/BLUE_LED_Program.o
+ .text          0x00000092        0x0 ./APPLICATION/APP_Program.o
  .text          0x00000092        0x0 ./APPLICATION/Display_Update_Program.o
  .text          0x00000092        0x0 ./APPLICATION/GearBox_Program.o
  .text          0x00000092        0x0 ./main.o
@@ -332,106 +332,106 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x000027ee       0x3a ./MCAL/ADC/ADC_Program.o
                 0x000027ee                ADC_Read
  .text.YELLOW_LED_TGL
-                0x00002828        0xa ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
+                0x00002828        0xa ./EHAL/YELLOW LED/YELLOW_LED_Program.o
                 0x00002828                YELLOW_LED_TGL
  .text.YELLOW_LED_OFF
-                0x00002832        0xc ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
+                0x00002832        0xc ./EHAL/YELLOW LED/YELLOW_LED_Program.o
                 0x00002832                YELLOW_LED_OFF
  .text.YELLOW_LED_ON
-                0x0000283e        0xc ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
+                0x0000283e        0xc ./EHAL/YELLOW LED/YELLOW_LED_Program.o
                 0x0000283e                YELLOW_LED_ON
  .text.YELLOW_LED_Initializ
-                0x0000284a        0xc ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
+                0x0000284a        0xc ./EHAL/YELLOW LED/YELLOW_LED_Program.o
                 0x0000284a                YELLOW_LED_Initializ
- .text.LIMIT_Speed_Analog_Read
-                0x00002856        0xe ./EHAL/Potentiometer/Engine_Limit_Sensor_Program.o
-                0x00002856                LIMIT_Speed_Analog_Read
- .text.LIMIT_Speed_Analog_Initialize
-                0x00002864        0xa ./EHAL/Potentiometer/Engine_Limit_Sensor_Program.o
-                0x00002864                LIMIT_Speed_Analog_Initialize
  .text.Speed_Analog_Read
-                0x0000286e        0xe ./EHAL/Potentiometer/Engine_Sensor_Program.o
-                0x0000286e                Speed_Analog_Read
+                0x00002856        0xe ./EHAL/Potentiometer/Engine_Sensor/Engine_Sensor_Program.o
+                0x00002856                Speed_Analog_Read
  .text.Speed_Analog_Initialize
-                0x0000287c        0xa ./EHAL/Potentiometer/Engine_Sensor_Program.o
-                0x0000287c                Speed_Analog_Initialize
+                0x00002864        0xa ./EHAL/Potentiometer/Engine_Sensor/Engine_Sensor_Program.o
+                0x00002864                Speed_Analog_Initialize
+ .text.LIMIT_Speed_Analog_Read
+                0x0000286e        0xe ./EHAL/Potentiometer/Engine_Limit_Sensor/Engine_Limit_Sensor_Program.o
+                0x0000286e                LIMIT_Speed_Analog_Read
+ .text.LIMIT_Speed_Analog_Initialize
+                0x0000287c        0xa ./EHAL/Potentiometer/Engine_Limit_Sensor/Engine_Limit_Sensor_Program.o
+                0x0000287c                LIMIT_Speed_Analog_Initialize
  .text.LCD_Write_Character
-                0x00002886       0xde ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002886       0xde ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002886                LCD_Write_Character
  .text.LCD_Write_Number
-                0x00002964      0x27a ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002964      0x27a ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002964                LCD_Write_Number
  .text.LCD_Write_String
-                0x00002bde       0x20 ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002bde       0x20 ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002bde                LCD_Write_String
  .text.LCD_Write_Command
-                0x00002bfe       0xde ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002bfe       0xde ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002bfe                LCD_Write_Command
  .text.load_custom_characters
-                0x00002cdc       0xce ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002cdc       0xce ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002cdc                load_custom_characters
  .text.LCD_LINE_position
-                0x00002daa       0x36 ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002daa       0x36 ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002daa                LCD_LINE_position
  .text.LCD_Clear
-                0x00002de0        0xa ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002de0        0xa ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002de0                LCD_Clear
  .text.LCD_Curser_ON
-                0x00002dea        0xa ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002dea        0xa ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002dea                LCD_Curser_ON
  .text.LCD_Curser_OFF
-                0x00002df4        0xa ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002df4        0xa ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002df4                LCD_Curser_OFF
  .text.LCD_Initialize
-                0x00002dfe       0x7a ./EHAL/LCD_4x20/LCD_Interface.o
+                0x00002dfe       0x7a ./EHAL/LCD_4x20/LCD_Program.o
                 0x00002dfe                LCD_Initialize
  .text.KEYPAD_Read
-                0x00002e78      0x156 ./EHAL/KEYPAD Driver/KEYPAD_Interface.o
+                0x00002e78      0x156 ./EHAL/KEYPAD Driver/KEYPAD_Program.o
                 0x00002e78                KEYPAD_Read
  .text.KEYPAD_Initialize
-                0x00002fce       0x7a ./EHAL/KEYPAD Driver/KEYPAD_Interface.o
+                0x00002fce       0x7a ./EHAL/KEYPAD Driver/KEYPAD_Program.o
                 0x00002fce                KEYPAD_Initialize
  .text.GREEN_LED_TGL
-                0x00003048        0xa ./EHAL/GREEN LED/GREEN_LED_Interface.o
+                0x00003048        0xa ./EHAL/GREEN LED/GREEN_LED_Program.o
                 0x00003048                GREEN_LED_TGL
  .text.GREEN_LED_OFF
-                0x00003052        0xc ./EHAL/GREEN LED/GREEN_LED_Interface.o
+                0x00003052        0xc ./EHAL/GREEN LED/GREEN_LED_Program.o
                 0x00003052                GREEN_LED_OFF
  .text.GREEN_LED_ON
-                0x0000305e        0xc ./EHAL/GREEN LED/GREEN_LED_Interface.o
+                0x0000305e        0xc ./EHAL/GREEN LED/GREEN_LED_Program.o
                 0x0000305e                GREEN_LED_ON
  .text.GREEN_LED_Initializ
-                0x0000306a        0xc ./EHAL/GREEN LED/GREEN_LED_Interface.o
+                0x0000306a        0xc ./EHAL/GREEN LED/GREEN_LED_Program.o
                 0x0000306a                GREEN_LED_Initializ
  .text.BUZZER_TGL
-                0x00003076        0xc ./EHAL/Buzzer/Buzzer_Interface.o
+                0x00003076        0xc ./EHAL/Buzzer/Buzzer_Program.o
                 0x00003076                BUZZER_TGL
  .text.BUZZER_OFF
-                0x00003082        0xe ./EHAL/Buzzer/Buzzer_Interface.o
+                0x00003082        0xe ./EHAL/Buzzer/Buzzer_Program.o
                 0x00003082                BUZZER_OFF
  .text.BUZZER_ON
-                0x00003090        0xe ./EHAL/Buzzer/Buzzer_Interface.o
+                0x00003090        0xe ./EHAL/Buzzer/Buzzer_Program.o
                 0x00003090                BUZZER_ON
  .text.BUZZER_Initialize
-                0x0000309e        0xe ./EHAL/Buzzer/Buzzer_Interface.o
+                0x0000309e        0xe ./EHAL/Buzzer/Buzzer_Program.o
                 0x0000309e                BUZZER_Initialize
  .text.BLUE_LED_TGL
-                0x000030ac        0xc ./EHAL/BLUE LED/BLUE_LED_Interface.o
+                0x000030ac        0xc ./EHAL/BLUE LED/BLUE_LED_Program.o
                 0x000030ac                BLUE_LED_TGL
  .text.BLUE_LED_OFF
-                0x000030b8        0xe ./EHAL/BLUE LED/BLUE_LED_Interface.o
+                0x000030b8        0xe ./EHAL/BLUE LED/BLUE_LED_Program.o
                 0x000030b8                BLUE_LED_OFF
  .text.BLUE_LED_ON
-                0x000030c6        0xe ./EHAL/BLUE LED/BLUE_LED_Interface.o
+                0x000030c6        0xe ./EHAL/BLUE LED/BLUE_LED_Program.o
                 0x000030c6                BLUE_LED_ON
  .text.BLUE_LED_Initializ
-                0x000030d4        0xe ./EHAL/BLUE LED/BLUE_LED_Interface.o
+                0x000030d4        0xe ./EHAL/BLUE LED/BLUE_LED_Program.o
                 0x000030d4                BLUE_LED_Initializ
  .text.MAIN_Application
-                0x000030e2       0x3a ./APPLICATION/APP_Interface.o
+                0x000030e2       0x3a ./APPLICATION/APP_Program.o
                 0x000030e2                MAIN_Application
  .text.Application_Initialize
-                0x0000311c       0xcc ./APPLICATION/APP_Interface.o
+                0x0000311c       0xcc ./APPLICATION/APP_Program.o
                 0x0000311c                Application_Initialize
  .text.Display_Letter
                 0x000031e8      0x256 ./APPLICATION/Display_Update_Program.o
@@ -513,15 +513,15 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .data          0x00800060        0x0 ./MCAL/SPI/SPI_Program.o
  .data          0x00800060        0x0 ./MCAL/DIO/DIO_Program.o
  .data          0x00800060        0x0 ./MCAL/ADC/ADC_Program.o
- .data          0x00800060        0x0 ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
- .data          0x00800060        0x0 ./EHAL/Potentiometer/Engine_Limit_Sensor_Program.o
- .data          0x00800060        0x0 ./EHAL/Potentiometer/Engine_Sensor_Program.o
- .data          0x00800060        0x0 ./EHAL/LCD_4x20/LCD_Interface.o
- .data          0x00800060        0x0 ./EHAL/KEYPAD Driver/KEYPAD_Interface.o
- .data          0x00800060        0x0 ./EHAL/GREEN LED/GREEN_LED_Interface.o
- .data          0x00800060        0x0 ./EHAL/Buzzer/Buzzer_Interface.o
- .data          0x00800060        0x0 ./EHAL/BLUE LED/BLUE_LED_Interface.o
- .data          0x00800060       0x76 ./APPLICATION/APP_Interface.o
+ .data          0x00800060        0x0 ./EHAL/YELLOW LED/YELLOW_LED_Program.o
+ .data          0x00800060        0x0 ./EHAL/Potentiometer/Engine_Sensor/Engine_Sensor_Program.o
+ .data          0x00800060        0x0 ./EHAL/Potentiometer/Engine_Limit_Sensor/Engine_Limit_Sensor_Program.o
+ .data          0x00800060        0x0 ./EHAL/LCD_4x20/LCD_Program.o
+ .data          0x00800060        0x0 ./EHAL/KEYPAD Driver/KEYPAD_Program.o
+ .data          0x00800060        0x0 ./EHAL/GREEN LED/GREEN_LED_Program.o
+ .data          0x00800060        0x0 ./EHAL/Buzzer/Buzzer_Program.o
+ .data          0x00800060        0x0 ./EHAL/BLUE LED/BLUE_LED_Program.o
+ .data          0x00800060       0x76 ./APPLICATION/APP_Program.o
  .data          0x008000d6       0x92 ./APPLICATION/Display_Update_Program.o
  .data          0x00800168        0x0 ./APPLICATION/GearBox_Program.o
  .data          0x00800168        0x0 ./main.o
@@ -550,22 +550,22 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x0080026a                Parking_Flag
  *(.rodata)
  *(.rodata*)
- .rodata.P_0    0x0080026b        0x8 ./EHAL/LCD_4x20/LCD_Interface.o
+ .rodata.P_0    0x0080026b        0x8 ./EHAL/LCD_4x20/LCD_Program.o
                 0x0080026b                P_0
- .rodata.P_1    0x00800273        0x8 ./EHAL/LCD_4x20/LCD_Interface.o
+ .rodata.P_1    0x00800273        0x8 ./EHAL/LCD_4x20/LCD_Program.o
                 0x00800273                P_1
- .rodata.P_2    0x0080027b        0x8 ./EHAL/LCD_4x20/LCD_Interface.o
+ .rodata.P_2    0x0080027b        0x8 ./EHAL/LCD_4x20/LCD_Program.o
                 0x0080027b                P_2
- .rodata.P_3    0x00800283        0x8 ./EHAL/LCD_4x20/LCD_Interface.o
+ .rodata.P_3    0x00800283        0x8 ./EHAL/LCD_4x20/LCD_Program.o
                 0x00800283                P_3
- .rodata.P_4    0x0080028b        0x8 ./EHAL/LCD_4x20/LCD_Interface.o
+ .rodata.P_4    0x0080028b        0x8 ./EHAL/LCD_4x20/LCD_Program.o
                 0x0080028b                P_4
- .rodata.P_5    0x00800293        0x8 ./EHAL/LCD_4x20/LCD_Interface.o
+ .rodata.P_5    0x00800293        0x8 ./EHAL/LCD_4x20/LCD_Program.o
                 0x00800293                P_5
- .rodata.P_6    0x0080029b        0x8 ./EHAL/LCD_4x20/LCD_Interface.o
+ .rodata.P_6    0x0080029b        0x8 ./EHAL/LCD_4x20/LCD_Program.o
                 0x0080029b                P_6
  .rodata.keypad
-                0x008002a3       0x10 ./EHAL/KEYPAD Driver/KEYPAD_Interface.o
+                0x008002a3       0x10 ./EHAL/KEYPAD Driver/KEYPAD_Program.o
                 0x008002a3                keypad
  *(.gnu.linkonce.d*)
                 0x008002b4                . = ALIGN (0x2)
@@ -581,15 +581,15 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .bss           0x008002b4        0x0 ./MCAL/SPI/SPI_Program.o
  .bss           0x008002b4        0x0 ./MCAL/DIO/DIO_Program.o
  .bss           0x008002b4        0x0 ./MCAL/ADC/ADC_Program.o
- .bss           0x008002b4        0x0 ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
- .bss           0x008002b4        0x0 ./EHAL/Potentiometer/Engine_Limit_Sensor_Program.o
- .bss           0x008002b4        0x0 ./EHAL/Potentiometer/Engine_Sensor_Program.o
- .bss           0x008002b4        0x0 ./EHAL/LCD_4x20/LCD_Interface.o
- .bss           0x008002b4        0x0 ./EHAL/KEYPAD Driver/KEYPAD_Interface.o
- .bss           0x008002b4        0x0 ./EHAL/GREEN LED/GREEN_LED_Interface.o
- .bss           0x008002b4        0x0 ./EHAL/Buzzer/Buzzer_Interface.o
- .bss           0x008002b4        0x0 ./EHAL/BLUE LED/BLUE_LED_Interface.o
- .bss           0x008002b4        0x0 ./APPLICATION/APP_Interface.o
+ .bss           0x008002b4        0x0 ./EHAL/YELLOW LED/YELLOW_LED_Program.o
+ .bss           0x008002b4        0x0 ./EHAL/Potentiometer/Engine_Sensor/Engine_Sensor_Program.o
+ .bss           0x008002b4        0x0 ./EHAL/Potentiometer/Engine_Limit_Sensor/Engine_Limit_Sensor_Program.o
+ .bss           0x008002b4        0x0 ./EHAL/LCD_4x20/LCD_Program.o
+ .bss           0x008002b4        0x0 ./EHAL/KEYPAD Driver/KEYPAD_Program.o
+ .bss           0x008002b4        0x0 ./EHAL/GREEN LED/GREEN_LED_Program.o
+ .bss           0x008002b4        0x0 ./EHAL/Buzzer/Buzzer_Program.o
+ .bss           0x008002b4        0x0 ./EHAL/BLUE LED/BLUE_LED_Program.o
+ .bss           0x008002b4        0x0 ./APPLICATION/APP_Program.o
  .bss           0x008002b4        0x0 ./APPLICATION/Display_Update_Program.o
  .bss           0x008002b4        0x0 ./APPLICATION/GearBox_Program.o
  .bss           0x008002b4        0x0 ./main.o
@@ -607,7 +607,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .bss           0x008002b4        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
  *(.bss*)
  .bss.My_Master
-                0x008002b4        0x5 ./APPLICATION/APP_Interface.o
+                0x008002b4        0x5 ./APPLICATION/APP_Program.o
                 0x008002b4                My_Master
  .bss.SPEED_LIMIT
                 0x008002b9        0x1 ./APPLICATION/Display_Update_Program.o
@@ -657,7 +657,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x4848
+.stab           0x00000000     0x4974
  *(.stab)
  .stab          0x00000000      0x4f8 ./MCAL/USART/UART_Program.o
  .stab          0x000004f8      0x618 ./MCAL/SPI/SPI_Program.o
@@ -666,34 +666,34 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                                 0x7ec (size before relaxing)
  .stab          0x0000108c      0x234 ./MCAL/ADC/ADC_Program.o
                                 0x4a4 (size before relaxing)
- .stab          0x000012c0      0x1f8 ./EHAL/YELLOW LED/YELLOW_LED_Interface.o
-                                0x4d4 (size before relaxing)
- .stab          0x000014b8      0x1c8 ./EHAL/Potentiometer/Engine_Limit_Sensor_Program.o
-                                0x438 (size before relaxing)
- .stab          0x00001680      0x1a4 ./EHAL/Potentiometer/Engine_Sensor_Program.o
-                                0x438 (size before relaxing)
- .stab          0x00001824      0xa2c ./EHAL/LCD_4x20/LCD_Interface.o
-                                0xd08 (size before relaxing)
- .stab          0x00002250      0x3c0 ./EHAL/KEYPAD Driver/KEYPAD_Interface.o
-                                0x69c (size before relaxing)
- .stab          0x00002610      0x1f8 ./EHAL/GREEN LED/GREEN_LED_Interface.o
-                                0x4d4 (size before relaxing)
- .stab          0x00002808      0x1f8 ./EHAL/Buzzer/Buzzer_Interface.o
-                                0x4d4 (size before relaxing)
- .stab          0x00002a00      0x1f8 ./EHAL/BLUE LED/BLUE_LED_Interface.o
-                                0x4d4 (size before relaxing)
- .stab          0x00002bf8      0x528 ./APPLICATION/APP_Interface.o
-                                0x828 (size before relaxing)
- .stab          0x00003120      0xe88 ./APPLICATION/Display_Update_Program.o
-                               0x1218 (size before relaxing)
- .stab          0x00003fa8      0x684 ./APPLICATION/GearBox_Program.o
-                                0xa20 (size before relaxing)
- .stab          0x0000462c      0x21c ./main.o
-                                0x570 (size before relaxing)
+ .stab          0x000012c0      0x210 ./EHAL/YELLOW LED/YELLOW_LED_Program.o
+                                0x4ec (size before relaxing)
+ .stab          0x000014d0      0x1e0 ./EHAL/Potentiometer/Engine_Sensor/Engine_Sensor_Program.o
+                                0x450 (size before relaxing)
+ .stab          0x000016b0      0x1bc ./EHAL/Potentiometer/Engine_Limit_Sensor/Engine_Limit_Sensor_Program.o
+                                0x450 (size before relaxing)
+ .stab          0x0000186c      0xa44 ./EHAL/LCD_4x20/LCD_Program.o
+                                0xd20 (size before relaxing)
+ .stab          0x000022b0      0x3d8 ./EHAL/KEYPAD Driver/KEYPAD_Program.o
+                                0x6b4 (size before relaxing)
+ .stab          0x00002688      0x210 ./EHAL/GREEN LED/GREEN_LED_Program.o
+                                0x4ec (size before relaxing)
+ .stab          0x00002898      0x210 ./EHAL/Buzzer/Buzzer_Program.o
+                                0x4ec (size before relaxing)
+ .stab          0x00002aa8      0x210 ./EHAL/BLUE LED/BLUE_LED_Program.o
+                                0x4ec (size before relaxing)
+ .stab          0x00002cb8      0x558 ./APPLICATION/APP_Program.o
+                                0x858 (size before relaxing)
+ .stab          0x00003210      0xedc ./APPLICATION/Display_Update_Program.o
+                               0x1248 (size before relaxing)
+ .stab          0x000040ec      0x6a8 ./APPLICATION/GearBox_Program.o
+                                0xa50 (size before relaxing)
+ .stab          0x00004794      0x1e0 ./main.o
+                                0x5a0 (size before relaxing)
 
-.stabstr        0x00000000     0x217a
+.stabstr        0x00000000     0x2483
  *(.stabstr)
- .stabstr       0x00000000     0x217a ./MCAL/USART/UART_Program.o
+ .stabstr       0x00000000     0x2483 ./MCAL/USART/UART_Program.o
 
 .stab.excl
  *(.stab.excl)

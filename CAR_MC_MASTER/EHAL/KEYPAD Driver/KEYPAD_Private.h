@@ -43,12 +43,5 @@
 
 #define KEYPAD_PRESSED  0
 
-/************************************************************************/
-/*                      Functions Prototypes                            */
-/************************************************************************/
-
-void KEYPAD_Initialize(void);
-void KEYPAD_Read(UINT8_t* val);
-
 
 #endif /* KEYPAD_PRIVATE_H_ */

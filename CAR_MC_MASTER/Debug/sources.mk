@@ -26,7 +26,8 @@ EHAL/Buzzer \
 EHAL/GREEN\ LED \
 EHAL/KEYPAD\ Driver \
 EHAL/LCD_4x20 \
-EHAL/Potentiometer \
+EHAL/Potentiometer/Engine_Limit_Sensor \
+EHAL/Potentiometer/Engine_Sensor \
 EHAL/YELLOW\ LED \
 MCAL/ADC \
 MCAL/DIO \
