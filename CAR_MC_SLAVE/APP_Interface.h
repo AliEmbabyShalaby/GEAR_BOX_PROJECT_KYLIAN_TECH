@@ -13,6 +13,9 @@
 #include "CPU_Configuration.h"
 #include "SPI_Interface.h"
 #include "EEPROM_Interface.h"
+#include "BLUE_LED_Private.h"
+#include "GREEN_LED_Private.h"
+#include "YELLOW_LED_Private.h"
 /*All Includes Here*/
 
 ERROR_STATE ApplicationS_Initialize(void);

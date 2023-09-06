@@ -3,15 +3,15 @@ CAR_MC_SLAVE.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000075e  00000000  00000000  00000094  2**1
+  0 .text         00000814  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000004  00800060  0000075e  000007f2  2**0
+  1 .data         00000004  00800060  00000814  000008a8  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000002  00800064  00800064  000007f6  2**0
+  2 .bss          00000002  00800064  00800064  000008ac  2**0
                   ALLOC
-  3 .stab         00001914  00000000  00000000  000007f8  2**2
+  3 .stab         00001f68  00000000  00000000  000008ac  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      000013c4  00000000  00000000  0000210c  2**0
+  4 .stabstr      00001603  00000000  00000000  00002814  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -51,8 +51,8 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ee e5       	ldi	r30, 0x5E	; 94
-  68:	f7 e0       	ldi	r31, 0x07	; 7
+  66:	e4 e1       	ldi	r30, 0x14	; 20
+  68:	f8 e0       	ldi	r31, 0x08	; 8
   6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
 
 0000006c <.do_copy_data_loop>:
@@ -77,8 +77,8 @@ Disassembly of section .text:
   80:	a6 36       	cpi	r26, 0x66	; 102
   82:	b1 07       	cpc	r27, r17
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 86 03 	call	0x70c	; 0x70c <main>
-  8a:	0c 94 ad 03 	jmp	0x75a	; 0x75a <_exit>
+  86:	0e 94 e1 03 	call	0x7c2	; 0x7c2 <main>
+  8a:	0c 94 08 04 	jmp	0x810	; 0x810 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -422,7 +422,7 @@ void I2C_SetClock(UINT32_t clk){
  218:	74 e2       	ldi	r23, 0x24	; 36
  21a:	84 ef       	ldi	r24, 0xF4	; 244
  21c:	90 e0       	ldi	r25, 0x00	; 0
- 21e:	0e 94 8b 03 	call	0x716	; 0x716 <__udivmodsi4>
+ 21e:	0e 94 e6 03 	call	0x7cc	; 0x7cc <__udivmodsi4>
  222:	20 51       	subi	r18, 0x10	; 16
  224:	30 40       	sbci	r19, 0x00	; 0
  226:	40 40       	sbci	r20, 0x00	; 0
@@ -1349,262 +1349,468 @@ ERROR_STATE state_error = SUCCESS;
  622:	81 e0       	ldi	r24, 0x01	; 1
  624:	08 95       	ret
 
-00000626 <EEPROM_RandomRead>:
+00000626 <YELLOW_LED_TGL>:
+}
+void YELLOW_LED_OFF(void){
+	DIO_SetPin_Value(YELLOW_LED_PORT,YELLOW_LED_PIN,YELLOW_LED_LOW);
+}
+void YELLOW_LED_TGL(void){
+	DIO_TglPin_Value(YELLOW_LED_PORT,YELLOW_LED_PIN);
+ 626:	80 e0       	ldi	r24, 0x00	; 0
+ 628:	66 e0       	ldi	r22, 0x06	; 6
+ 62a:	0e 94 7a 02 	call	0x4f4	; 0x4f4 <DIO_TglPin_Value>
+}
+ 62e:	08 95       	ret
+
+00000630 <YELLOW_LED_OFF>:
+}
+void YELLOW_LED_ON(void){
+	DIO_SetPin_Value(YELLOW_LED_PORT,YELLOW_LED_PIN,YELLOW_LED_HIGH);
+}
+void YELLOW_LED_OFF(void){
+	DIO_SetPin_Value(YELLOW_LED_PORT,YELLOW_LED_PIN,YELLOW_LED_LOW);
+ 630:	80 e0       	ldi	r24, 0x00	; 0
+ 632:	66 e0       	ldi	r22, 0x06	; 6
+ 634:	40 e0       	ldi	r20, 0x00	; 0
+ 636:	0e 94 fb 01 	call	0x3f6	; 0x3f6 <DIO_SetPin_Value>
+}
+ 63a:	08 95       	ret
+
+0000063c <YELLOW_LED_ON>:
+
+void YELLOW_LED_Initializ(void){
+	DIO_SetPin_Direction(YELLOW_LED_PORT,YELLOW_LED_PIN,YELLOW_LED_OUTPUT);
+}
+void YELLOW_LED_ON(void){
+	DIO_SetPin_Value(YELLOW_LED_PORT,YELLOW_LED_PIN,YELLOW_LED_HIGH);
+ 63c:	80 e0       	ldi	r24, 0x00	; 0
+ 63e:	66 e0       	ldi	r22, 0x06	; 6
+ 640:	41 e0       	ldi	r20, 0x01	; 1
+ 642:	0e 94 fb 01 	call	0x3f6	; 0x3f6 <DIO_SetPin_Value>
+}
+ 646:	08 95       	ret
+
+00000648 <YELLOW_LED_Initializ>:
+ */
+#include "YELLOW_LED_Private.h"
+#include "DIO_Interface.h"
+
+void YELLOW_LED_Initializ(void){
+	DIO_SetPin_Direction(YELLOW_LED_PORT,YELLOW_LED_PIN,YELLOW_LED_OUTPUT);
+ 648:	80 e0       	ldi	r24, 0x00	; 0
+ 64a:	66 e0       	ldi	r22, 0x06	; 6
+ 64c:	41 e0       	ldi	r20, 0x01	; 1
+ 64e:	0e 94 7c 01 	call	0x2f8	; 0x2f8 <DIO_SetPin_Direction>
+}
+ 652:	08 95       	ret
+
+00000654 <GREEN_LED_TGL>:
+}
+void GREEN_LED_OFF(void){
+	DIO_SetPin_Value(GREEN_LED_PORT,GREEN_LED_PIN,GREEN_LED_LOW);
+}
+void GREEN_LED_TGL(void){
+	DIO_TglPin_Value(GREEN_LED_PORT,GREEN_LED_PIN);
+ 654:	80 e0       	ldi	r24, 0x00	; 0
+ 656:	64 e0       	ldi	r22, 0x04	; 4
+ 658:	0e 94 7a 02 	call	0x4f4	; 0x4f4 <DIO_TglPin_Value>
+}
+ 65c:	08 95       	ret
+
+0000065e <GREEN_LED_OFF>:
+}
+void GREEN_LED_ON(void){
+	DIO_SetPin_Value(GREEN_LED_PORT,GREEN_LED_PIN,GREEN_LED_HIGH);
+}
+void GREEN_LED_OFF(void){
+	DIO_SetPin_Value(GREEN_LED_PORT,GREEN_LED_PIN,GREEN_LED_LOW);
+ 65e:	80 e0       	ldi	r24, 0x00	; 0
+ 660:	64 e0       	ldi	r22, 0x04	; 4
+ 662:	40 e0       	ldi	r20, 0x00	; 0
+ 664:	0e 94 fb 01 	call	0x3f6	; 0x3f6 <DIO_SetPin_Value>
+}
+ 668:	08 95       	ret
+
+0000066a <GREEN_LED_ON>:
+
+void GREEN_LED_Initializ(void){
+	DIO_SetPin_Direction(GREEN_LED_PORT,GREEN_LED_PIN,GREEN_LED_OUTPUT);
+}
+void GREEN_LED_ON(void){
+	DIO_SetPin_Value(GREEN_LED_PORT,GREEN_LED_PIN,GREEN_LED_HIGH);
+ 66a:	80 e0       	ldi	r24, 0x00	; 0
+ 66c:	64 e0       	ldi	r22, 0x04	; 4
+ 66e:	41 e0       	ldi	r20, 0x01	; 1
+ 670:	0e 94 fb 01 	call	0x3f6	; 0x3f6 <DIO_SetPin_Value>
+}
+ 674:	08 95       	ret
+
+00000676 <GREEN_LED_Initializ>:
+ */
+
+#include "GREEN_LED_Private.h"
+
+void GREEN_LED_Initializ(void){
+	DIO_SetPin_Direction(GREEN_LED_PORT,GREEN_LED_PIN,GREEN_LED_OUTPUT);
+ 676:	80 e0       	ldi	r24, 0x00	; 0
+ 678:	64 e0       	ldi	r22, 0x04	; 4
+ 67a:	41 e0       	ldi	r20, 0x01	; 1
+ 67c:	0e 94 7c 01 	call	0x2f8	; 0x2f8 <DIO_SetPin_Direction>
+}
+ 680:	08 95       	ret
+
+00000682 <EEPROM_RandomRead>:
 	I2C_MasterStop();
 	/*Wait for EEPROM to finish the operation*/
 	_delay_ms(EEPROM_R_W_TIME_IN_MS);
 }
 
 UINT8_t EEPROM_RandomRead(UINT8_t addr){
- 626:	1f 93       	push	r17
- 628:	df 93       	push	r29
- 62a:	cf 93       	push	r28
- 62c:	0f 92       	push	r0
- 62e:	cd b7       	in	r28, 0x3d	; 61
- 630:	de b7       	in	r29, 0x3e	; 62
- 632:	18 2f       	mov	r17, r24
+ 682:	1f 93       	push	r17
+ 684:	df 93       	push	r29
+ 686:	cf 93       	push	r28
+ 688:	0f 92       	push	r0
+ 68a:	cd b7       	in	r28, 0x3d	; 61
+ 68c:	de b7       	in	r29, 0x3e	; 62
+ 68e:	18 2f       	mov	r17, r24
 	UINT8_t data = 0;
- 634:	19 82       	std	Y+1, r1	; 0x01
+ 690:	19 82       	std	Y+1, r1	; 0x01
 	/*Start I2C communication for providing data address*/
 	I2C_MasterStart();
- 636:	0e 94 1b 01 	call	0x236	; 0x236 <I2C_MasterStart>
+ 692:	0e 94 1b 01 	call	0x236	; 0x236 <I2C_MasterStart>
 	/*Address the EEPROM with a write request*/
 	I2C_SetSlaveAddressWithWrite(EEPROM_ADDR);
- 63a:	80 ea       	ldi	r24, 0xA0	; 160
- 63c:	0e 94 35 01 	call	0x26a	; 0x26a <I2C_SetSlaveAddressWithWrite>
+ 696:	80 ea       	ldi	r24, 0xA0	; 160
+ 698:	0e 94 35 01 	call	0x26a	; 0x26a <I2C_SetSlaveAddressWithWrite>
 	/*Load the location in the EEPROM where the stored data is*/
 	I2C_MasterWriteData(addr);
- 640:	81 2f       	mov	r24, r17
- 642:	0e 94 52 01 	call	0x2a4	; 0x2a4 <I2C_MasterWriteData>
+ 69c:	81 2f       	mov	r24, r17
+ 69e:	0e 94 52 01 	call	0x2a4	; 0x2a4 <I2C_MasterWriteData>
 	/*Start I2C communication for reading the data*/
 	I2C_MasterRepeatStart();
- 646:	0e 94 28 01 	call	0x250	; 0x250 <I2C_MasterRepeatStart>
+ 6a2:	0e 94 28 01 	call	0x250	; 0x250 <I2C_MasterRepeatStart>
 	/*Address the EEPROM with a read request*/
 	I2C_SetSlaveAddressWithRead(EEPROM_ADDR);
- 64a:	80 ea       	ldi	r24, 0xA0	; 160
- 64c:	0e 94 43 01 	call	0x286	; 0x286 <I2C_SetSlaveAddressWithRead>
+ 6a6:	80 ea       	ldi	r24, 0xA0	; 160
+ 6a8:	0e 94 43 01 	call	0x286	; 0x286 <I2C_SetSlaveAddressWithRead>
 	/*Read the user data*/
 	I2C_MasterReadData(&data);
- 650:	ce 01       	movw	r24, r28
- 652:	01 96       	adiw	r24, 0x01	; 1
- 654:	0e 94 60 01 	call	0x2c0	; 0x2c0 <I2C_MasterReadData>
+ 6ac:	ce 01       	movw	r24, r28
+ 6ae:	01 96       	adiw	r24, 0x01	; 1
+ 6b0:	0e 94 60 01 	call	0x2c0	; 0x2c0 <I2C_MasterReadData>
 	/*Terminate the I2C communication*/
 	I2C_MasterStop();
- 658:	0e 94 70 01 	call	0x2e0	; 0x2e0 <I2C_MasterStop>
+ 6b4:	0e 94 70 01 	call	0x2e0	; 0x2e0 <I2C_MasterStop>
     milliseconds can be achieved.
  */
 void
 _delay_loop_2(uint16_t __count)
 {
 	__asm__ volatile (
- 65c:	80 e2       	ldi	r24, 0x20	; 32
- 65e:	9e e4       	ldi	r25, 0x4E	; 78
- 660:	01 97       	sbiw	r24, 0x01	; 1
- 662:	f1 f7       	brne	.-4      	; 0x660 <EEPROM_RandomRead+0x3a>
+ 6b8:	80 e2       	ldi	r24, 0x20	; 32
+ 6ba:	9e e4       	ldi	r25, 0x4E	; 78
+ 6bc:	01 97       	sbiw	r24, 0x01	; 1
+ 6be:	f1 f7       	brne	.-4      	; 0x6bc <EEPROM_RandomRead+0x3a>
 	/*Wait for EEPROM to finish the operation*/
 	_delay_ms(EEPROM_R_W_TIME_IN_MS);
 	return data;
 }
- 664:	89 81       	ldd	r24, Y+1	; 0x01
- 666:	0f 90       	pop	r0
- 668:	cf 91       	pop	r28
- 66a:	df 91       	pop	r29
- 66c:	1f 91       	pop	r17
- 66e:	08 95       	ret
+ 6c0:	89 81       	ldd	r24, Y+1	; 0x01
+ 6c2:	0f 90       	pop	r0
+ 6c4:	cf 91       	pop	r28
+ 6c6:	df 91       	pop	r29
+ 6c8:	1f 91       	pop	r17
+ 6ca:	08 95       	ret
 
-00000670 <EEPROM_ByteWrite>:
+000006cc <EEPROM_ByteWrite>:
 void EEPROM_Init(){
 	I2C_SetClock(EEPROM_CLK);
 	I2C_Init();
 }
 
 void EEPROM_ByteWrite(UINT8_t addr, UINT8_t data){
- 670:	0f 93       	push	r16
- 672:	1f 93       	push	r17
- 674:	18 2f       	mov	r17, r24
- 676:	06 2f       	mov	r16, r22
+ 6cc:	0f 93       	push	r16
+ 6ce:	1f 93       	push	r17
+ 6d0:	18 2f       	mov	r17, r24
+ 6d2:	06 2f       	mov	r16, r22
 	/*Start I2C communication*/
 	I2C_MasterStart();
- 678:	0e 94 1b 01 	call	0x236	; 0x236 <I2C_MasterStart>
+ 6d4:	0e 94 1b 01 	call	0x236	; 0x236 <I2C_MasterStart>
 	/*Address the EEPROM with a write request*/
 	I2C_SetSlaveAddressWithWrite(EEPROM_ADDR);
- 67c:	80 ea       	ldi	r24, 0xA0	; 160
- 67e:	0e 94 35 01 	call	0x26a	; 0x26a <I2C_SetSlaveAddressWithWrite>
+ 6d8:	80 ea       	ldi	r24, 0xA0	; 160
+ 6da:	0e 94 35 01 	call	0x26a	; 0x26a <I2C_SetSlaveAddressWithWrite>
 	/*Load the location in the EEPROM where the data will be stored*/
 	I2C_MasterWriteData(addr);
- 682:	81 2f       	mov	r24, r17
- 684:	0e 94 52 01 	call	0x2a4	; 0x2a4 <I2C_MasterWriteData>
+ 6de:	81 2f       	mov	r24, r17
+ 6e0:	0e 94 52 01 	call	0x2a4	; 0x2a4 <I2C_MasterWriteData>
 	/*Store the user data*/
 	I2C_MasterWriteData(data);
- 688:	80 2f       	mov	r24, r16
- 68a:	0e 94 52 01 	call	0x2a4	; 0x2a4 <I2C_MasterWriteData>
+ 6e4:	80 2f       	mov	r24, r16
+ 6e6:	0e 94 52 01 	call	0x2a4	; 0x2a4 <I2C_MasterWriteData>
 	/*Terminate the I2C communication*/
 	I2C_MasterStop();
- 68e:	0e 94 70 01 	call	0x2e0	; 0x2e0 <I2C_MasterStop>
- 692:	80 e2       	ldi	r24, 0x20	; 32
- 694:	9e e4       	ldi	r25, 0x4E	; 78
- 696:	01 97       	sbiw	r24, 0x01	; 1
- 698:	f1 f7       	brne	.-4      	; 0x696 <EEPROM_ByteWrite+0x26>
+ 6ea:	0e 94 70 01 	call	0x2e0	; 0x2e0 <I2C_MasterStop>
+ 6ee:	80 e2       	ldi	r24, 0x20	; 32
+ 6f0:	9e e4       	ldi	r25, 0x4E	; 78
+ 6f2:	01 97       	sbiw	r24, 0x01	; 1
+ 6f4:	f1 f7       	brne	.-4      	; 0x6f2 <EEPROM_ByteWrite+0x26>
 	/*Wait for EEPROM to finish the operation*/
 	_delay_ms(EEPROM_R_W_TIME_IN_MS);
 }
- 69a:	1f 91       	pop	r17
- 69c:	0f 91       	pop	r16
- 69e:	08 95       	ret
+ 6f6:	1f 91       	pop	r17
+ 6f8:	0f 91       	pop	r16
+ 6fa:	08 95       	ret
 
-000006a0 <EEPROM_Init>:
+000006fc <EEPROM_Init>:
 #include "EEPROM_Config.h"
 #include "EEPROM_Interface.h"
 #include "EEPROM_Private.h"
 
 void EEPROM_Init(){
 	I2C_SetClock(EEPROM_CLK);
- 6a0:	60 e8       	ldi	r22, 0x80	; 128
- 6a2:	7a e1       	ldi	r23, 0x1A	; 26
- 6a4:	86 e0       	ldi	r24, 0x06	; 6
- 6a6:	90 e0       	ldi	r25, 0x00	; 0
- 6a8:	0e 94 09 01 	call	0x212	; 0x212 <I2C_SetClock>
+ 6fc:	60 e8       	ldi	r22, 0x80	; 128
+ 6fe:	7a e1       	ldi	r23, 0x1A	; 26
+ 700:	86 e0       	ldi	r24, 0x06	; 6
+ 702:	90 e0       	ldi	r25, 0x00	; 0
+ 704:	0e 94 09 01 	call	0x212	; 0x212 <I2C_SetClock>
 	I2C_Init();
- 6ac:	0e 94 05 01 	call	0x20a	; 0x20a <I2C_Init>
+ 708:	0e 94 05 01 	call	0x20a	; 0x20a <I2C_Init>
 }
- 6b0:	08 95       	ret
+ 70c:	08 95       	ret
 
-000006b2 <MAINS_Application>:
+0000070e <BLUE_LED_TGL>:
+	DIO_SetPin_Value(BLUE_LED_PORT,BLUE_LED_PIN,BLUE_LED_LOW);
+	return state_error;
+}
+ERROR_STATE BLUE_LED_TGL(void){
+	ERROR_STATE state_error = SUCCESS;
+	DIO_TglPin_Value(BLUE_LED_PORT,BLUE_LED_PIN);
+ 70e:	80 e0       	ldi	r24, 0x00	; 0
+ 710:	65 e0       	ldi	r22, 0x05	; 5
+ 712:	0e 94 7a 02 	call	0x4f4	; 0x4f4 <DIO_TglPin_Value>
+	return state_error;
+}
+ 716:	81 e0       	ldi	r24, 0x01	; 1
+ 718:	08 95       	ret
+
+0000071a <BLUE_LED_OFF>:
+	DIO_SetPin_Value(BLUE_LED_PORT,BLUE_LED_PIN,BLUE_LED_HIGH);
+	return state_error;
+}
+ERROR_STATE BLUE_LED_OFF(void){
+	ERROR_STATE state_error = SUCCESS;
+	DIO_SetPin_Value(BLUE_LED_PORT,BLUE_LED_PIN,BLUE_LED_LOW);
+ 71a:	80 e0       	ldi	r24, 0x00	; 0
+ 71c:	65 e0       	ldi	r22, 0x05	; 5
+ 71e:	40 e0       	ldi	r20, 0x00	; 0
+ 720:	0e 94 fb 01 	call	0x3f6	; 0x3f6 <DIO_SetPin_Value>
+	return state_error;
+}
+ 724:	81 e0       	ldi	r24, 0x01	; 1
+ 726:	08 95       	ret
+
+00000728 <BLUE_LED_ON>:
+	DIO_SetPin_Direction(BLUE_LED_PORT,BLUE_LED_PIN,BLUE_LED_OUTPUT);
+	return state_error;
+}
+ERROR_STATE BLUE_LED_ON(void){
+	ERROR_STATE state_error = SUCCESS;
+	DIO_SetPin_Value(BLUE_LED_PORT,BLUE_LED_PIN,BLUE_LED_HIGH);
+ 728:	80 e0       	ldi	r24, 0x00	; 0
+ 72a:	65 e0       	ldi	r22, 0x05	; 5
+ 72c:	41 e0       	ldi	r20, 0x01	; 1
+ 72e:	0e 94 fb 01 	call	0x3f6	; 0x3f6 <DIO_SetPin_Value>
+	return state_error;
+}
+ 732:	81 e0       	ldi	r24, 0x01	; 1
+ 734:	08 95       	ret
+
+00000736 <BLUE_LED_Initializ>:
+
+#include "BLUE_LED_Private.h"
+
+ERROR_STATE BLUE_LED_Initializ(void){
+	ERROR_STATE state_error = SUCCESS;
+	DIO_SetPin_Direction(BLUE_LED_PORT,BLUE_LED_PIN,BLUE_LED_OUTPUT);
+ 736:	80 e0       	ldi	r24, 0x00	; 0
+ 738:	65 e0       	ldi	r22, 0x05	; 5
+ 73a:	41 e0       	ldi	r20, 0x01	; 1
+ 73c:	0e 94 7c 01 	call	0x2f8	; 0x2f8 <DIO_SetPin_Direction>
+	return state_error;
+}
+ 740:	81 e0       	ldi	r24, 0x01	; 1
+ 742:	08 95       	ret
+
+00000744 <MAINS_Application>:
 
 ERROR_STATE MAINS_Application() {
 	ERROR_STATE state_error = SUCCESS;
 
 	return state_error;
 }
- 6b2:	81 e0       	ldi	r24, 0x01	; 1
- 6b4:	08 95       	ret
+ 744:	81 e0       	ldi	r24, 0x01	; 1
+ 746:	08 95       	ret
 
-000006b6 <EEPROM_READ_WRITE>:
+00000748 <EEPROM_READ_WRITE>:
 void EEPROM_READ_WRITE(void) {
- 6b6:	df 93       	push	r29
- 6b8:	cf 93       	push	r28
- 6ba:	0f 92       	push	r0
- 6bc:	cd b7       	in	r28, 0x3d	; 61
- 6be:	de b7       	in	r29, 0x3e	; 62
+ 748:	df 93       	push	r29
+ 74a:	cf 93       	push	r28
+ 74c:	0f 92       	push	r0
+ 74e:	cd b7       	in	r28, 0x3d	; 61
+ 750:	de b7       	in	r29, 0x3e	; 62
 	UINT8_t Data_Received = 0;
- 6c0:	19 82       	std	Y+1, r1	; 0x01
+ 752:	19 82       	std	Y+1, r1	; 0x01
 	SPI_Read_Data(&Data_Received);
- 6c2:	ce 01       	movw	r24, r28
- 6c4:	01 96       	adiw	r24, 0x01	; 1
- 6c6:	0e 94 7d 00 	call	0xfa	; 0xfa <SPI_Read_Data>
+ 754:	ce 01       	movw	r24, r28
+ 756:	01 96       	adiw	r24, 0x01	; 1
+ 758:	0e 94 7d 00 	call	0xfa	; 0xfa <SPI_Read_Data>
 	if (Data_Received == DUMMY_DATA) {
- 6ca:	69 81       	ldd	r22, Y+1	; 0x01
- 6cc:	6f 3f       	cpi	r22, 0xFF	; 255
- 6ce:	29 f0       	breq	.+10     	; 0x6da <EEPROM_READ_WRITE+0x24>
+ 75c:	69 81       	ldd	r22, Y+1	; 0x01
+ 75e:	6f 3f       	cpi	r22, 0xFF	; 255
+ 760:	b1 f0       	breq	.+44     	; 0x78e <EEPROM_READ_WRITE+0x46>
 		/*Data Received*/
+			YELLOW_LED_TGL();
 	} else if (Data_Received == UPDATE_YOURSELF) {
- 6d0:	6d 3f       	cpi	r22, 0xFD	; 253
- 6d2:	39 f0       	breq	.+14     	; 0x6e2 <EEPROM_READ_WRITE+0x2c>
-		SPI_Send_ASynch_Byte(EEPROM_RandomRead(0X10));
+ 762:	6d 3f       	cpi	r22, 0xFD	; 253
+ 764:	49 f0       	breq	.+18     	; 0x778 <EEPROM_READ_WRITE+0x30>
+		SPI_Send_ASynch_Byte(EEPROM_RandomRead(0x10));
+			BLUE_LED_TGL();
 	} else {
-		EEPROM_ByteWrite(0X10, Data_Received);
- 6d4:	80 e1       	ldi	r24, 0x10	; 16
- 6d6:	0e 94 38 03 	call	0x670	; 0x670 <EEPROM_ByteWrite>
+		EEPROM_ByteWrite(0x10, Data_Received);
+ 766:	80 e1       	ldi	r24, 0x10	; 16
+ 768:	0e 94 66 03 	call	0x6cc	; 0x6cc <EEPROM_ByteWrite>
+			GREEN_LED_TGL();
+ 76c:	0e 94 2a 03 	call	0x654	; 0x654 <GREEN_LED_TGL>
 	}
 }
- 6da:	0f 90       	pop	r0
- 6dc:	cf 91       	pop	r28
- 6de:	df 91       	pop	r29
- 6e0:	08 95       	ret
+ 770:	0f 90       	pop	r0
+ 772:	cf 91       	pop	r28
+ 774:	df 91       	pop	r29
+ 776:	08 95       	ret
+	SPI_Read_Data(&Data_Received);
+	if (Data_Received == DUMMY_DATA) {
+		/*Data Received*/
+			YELLOW_LED_TGL();
+	} else if (Data_Received == UPDATE_YOURSELF) {
+		SPI_Send_ASynch_Byte(EEPROM_RandomRead(0x10));
+ 778:	80 e1       	ldi	r24, 0x10	; 16
+ 77a:	0e 94 41 03 	call	0x682	; 0x682 <EEPROM_RandomRead>
+ 77e:	0e 94 78 00 	call	0xf0	; 0xf0 <SPI_Send_ASynch_Byte>
+			BLUE_LED_TGL();
+ 782:	0e 94 87 03 	call	0x70e	; 0x70e <BLUE_LED_TGL>
+	} else {
+		EEPROM_ByteWrite(0x10, Data_Received);
+			GREEN_LED_TGL();
+	}
+}
+ 786:	0f 90       	pop	r0
+ 788:	cf 91       	pop	r28
+ 78a:	df 91       	pop	r29
+ 78c:	08 95       	ret
+void EEPROM_READ_WRITE(void) {
 	UINT8_t Data_Received = 0;
 	SPI_Read_Data(&Data_Received);
 	if (Data_Received == DUMMY_DATA) {
 		/*Data Received*/
-	} else if (Data_Received == UPDATE_YOURSELF) {
-		SPI_Send_ASynch_Byte(EEPROM_RandomRead(0X10));
- 6e2:	80 e1       	ldi	r24, 0x10	; 16
- 6e4:	0e 94 13 03 	call	0x626	; 0x626 <EEPROM_RandomRead>
- 6e8:	0e 94 78 00 	call	0xf0	; 0xf0 <SPI_Send_ASynch_Byte>
+			YELLOW_LED_TGL();
+ 78e:	0e 94 13 03 	call	0x626	; 0x626 <YELLOW_LED_TGL>
+			BLUE_LED_TGL();
 	} else {
-		EEPROM_ByteWrite(0X10, Data_Received);
+		EEPROM_ByteWrite(0x10, Data_Received);
+			GREEN_LED_TGL();
 	}
 }
- 6ec:	0f 90       	pop	r0
- 6ee:	cf 91       	pop	r28
- 6f0:	df 91       	pop	r29
- 6f2:	08 95       	ret
+ 792:	0f 90       	pop	r0
+ 794:	cf 91       	pop	r28
+ 796:	df 91       	pop	r29
+ 798:	08 95       	ret
 
-000006f4 <ApplicationS_Initialize>:
+0000079a <ApplicationS_Initialize>:
 SPI_RISING_LEADING,
 SPI_SAMPLE_LEADING };
 
 ERROR_STATE ApplicationS_Initialize() {
 	ERROR_STATE state_error = SUCCESS;
+	BLUE_LED_Initializ();
+ 79a:	0e 94 9b 03 	call	0x736	; 0x736 <BLUE_LED_Initializ>
+	YELLOW_LED_Initializ();
+ 79e:	0e 94 24 03 	call	0x648	; 0x648 <YELLOW_LED_Initializ>
+	GREEN_LED_Initializ();
+ 7a2:	0e 94 3b 03 	call	0x676	; 0x676 <GREEN_LED_Initializ>
+	EEPROM_Init();
+ 7a6:	0e 94 7e 03 	call	0x6fc	; 0x6fc <EEPROM_Init>
 	Global_Interrupt_Enable();
- 6f4:	0e 94 88 00 	call	0x110	; 0x110 <Global_Interrupt_Enable>
+ 7aa:	0e 94 88 00 	call	0x110	; 0x110 <Global_Interrupt_Enable>
 	SPI_Init_Slave(&My_Slave);
- 6f8:	80 e6       	ldi	r24, 0x60	; 96
- 6fa:	90 e0       	ldi	r25, 0x00	; 0
- 6fc:	0e 94 97 00 	call	0x12e	; 0x12e <SPI_Init_Slave>
+ 7ae:	80 e6       	ldi	r24, 0x60	; 96
+ 7b0:	90 e0       	ldi	r25, 0x00	; 0
+ 7b2:	0e 94 97 00 	call	0x12e	; 0x12e <SPI_Init_Slave>
 	SPI_Set_CallBack(EEPROM_READ_WRITE);
- 700:	8b e5       	ldi	r24, 0x5B	; 91
- 702:	93 e0       	ldi	r25, 0x03	; 3
- 704:	0e 94 82 00 	call	0x104	; 0x104 <SPI_Set_CallBack>
+ 7b6:	84 ea       	ldi	r24, 0xA4	; 164
+ 7b8:	93 e0       	ldi	r25, 0x03	; 3
+ 7ba:	0e 94 82 00 	call	0x104	; 0x104 <SPI_Set_CallBack>
+
 	return state_error;
 }
- 708:	81 e0       	ldi	r24, 0x01	; 1
- 70a:	08 95       	ret
+ 7be:	81 e0       	ldi	r24, 0x01	; 1
+ 7c0:	08 95       	ret
 
-0000070c <main>:
+000007c2 <main>:
  *
  */
 #include "main.h"
 
 int main() {
 	ApplicationS_Initialize();
- 70c:	0e 94 7a 03 	call	0x6f4	; 0x6f4 <ApplicationS_Initialize>
+ 7c2:	0e 94 cd 03 	call	0x79a	; 0x79a <ApplicationS_Initialize>
 	while (1) {
 		MAINS_Application();
- 710:	0e 94 59 03 	call	0x6b2	; 0x6b2 <MAINS_Application>
- 714:	fd cf       	rjmp	.-6      	; 0x710 <main+0x4>
+ 7c6:	0e 94 a2 03 	call	0x744	; 0x744 <MAINS_Application>
+ 7ca:	fd cf       	rjmp	.-6      	; 0x7c6 <main+0x4>
 
-00000716 <__udivmodsi4>:
- 716:	a1 e2       	ldi	r26, 0x21	; 33
- 718:	1a 2e       	mov	r1, r26
- 71a:	aa 1b       	sub	r26, r26
- 71c:	bb 1b       	sub	r27, r27
- 71e:	fd 01       	movw	r30, r26
- 720:	0d c0       	rjmp	.+26     	; 0x73c <__udivmodsi4_ep>
+000007cc <__udivmodsi4>:
+ 7cc:	a1 e2       	ldi	r26, 0x21	; 33
+ 7ce:	1a 2e       	mov	r1, r26
+ 7d0:	aa 1b       	sub	r26, r26
+ 7d2:	bb 1b       	sub	r27, r27
+ 7d4:	fd 01       	movw	r30, r26
+ 7d6:	0d c0       	rjmp	.+26     	; 0x7f2 <__udivmodsi4_ep>
 
-00000722 <__udivmodsi4_loop>:
- 722:	aa 1f       	adc	r26, r26
- 724:	bb 1f       	adc	r27, r27
- 726:	ee 1f       	adc	r30, r30
- 728:	ff 1f       	adc	r31, r31
- 72a:	a2 17       	cp	r26, r18
- 72c:	b3 07       	cpc	r27, r19
- 72e:	e4 07       	cpc	r30, r20
- 730:	f5 07       	cpc	r31, r21
- 732:	20 f0       	brcs	.+8      	; 0x73c <__udivmodsi4_ep>
- 734:	a2 1b       	sub	r26, r18
- 736:	b3 0b       	sbc	r27, r19
- 738:	e4 0b       	sbc	r30, r20
- 73a:	f5 0b       	sbc	r31, r21
+000007d8 <__udivmodsi4_loop>:
+ 7d8:	aa 1f       	adc	r26, r26
+ 7da:	bb 1f       	adc	r27, r27
+ 7dc:	ee 1f       	adc	r30, r30
+ 7de:	ff 1f       	adc	r31, r31
+ 7e0:	a2 17       	cp	r26, r18
+ 7e2:	b3 07       	cpc	r27, r19
+ 7e4:	e4 07       	cpc	r30, r20
+ 7e6:	f5 07       	cpc	r31, r21
+ 7e8:	20 f0       	brcs	.+8      	; 0x7f2 <__udivmodsi4_ep>
+ 7ea:	a2 1b       	sub	r26, r18
+ 7ec:	b3 0b       	sbc	r27, r19
+ 7ee:	e4 0b       	sbc	r30, r20
+ 7f0:	f5 0b       	sbc	r31, r21
 
-0000073c <__udivmodsi4_ep>:
- 73c:	66 1f       	adc	r22, r22
- 73e:	77 1f       	adc	r23, r23
- 740:	88 1f       	adc	r24, r24
- 742:	99 1f       	adc	r25, r25
- 744:	1a 94       	dec	r1
- 746:	69 f7       	brne	.-38     	; 0x722 <__udivmodsi4_loop>
- 748:	60 95       	com	r22
- 74a:	70 95       	com	r23
- 74c:	80 95       	com	r24
- 74e:	90 95       	com	r25
- 750:	9b 01       	movw	r18, r22
- 752:	ac 01       	movw	r20, r24
- 754:	bd 01       	movw	r22, r26
- 756:	cf 01       	movw	r24, r30
- 758:	08 95       	ret
+000007f2 <__udivmodsi4_ep>:
+ 7f2:	66 1f       	adc	r22, r22
+ 7f4:	77 1f       	adc	r23, r23
+ 7f6:	88 1f       	adc	r24, r24
+ 7f8:	99 1f       	adc	r25, r25
+ 7fa:	1a 94       	dec	r1
+ 7fc:	69 f7       	brne	.-38     	; 0x7d8 <__udivmodsi4_loop>
+ 7fe:	60 95       	com	r22
+ 800:	70 95       	com	r23
+ 802:	80 95       	com	r24
+ 804:	90 95       	com	r25
+ 806:	9b 01       	movw	r18, r22
+ 808:	ac 01       	movw	r20, r24
+ 80a:	bd 01       	movw	r22, r26
+ 80c:	cf 01       	movw	r24, r30
+ 80e:	08 95       	ret
 
-0000075a <_exit>:
- 75a:	f8 94       	cli
+00000810 <_exit>:
+ 810:	f8 94       	cli
 
-0000075c <__stop_program>:
- 75c:	ff cf       	rjmp	.-2      	; 0x75c <__stop_program>
+00000812 <__stop_program>:
+ 812:	ff cf       	rjmp	.-2      	; 0x812 <__stop_program>

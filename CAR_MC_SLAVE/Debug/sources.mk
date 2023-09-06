@@ -21,7 +21,10 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 . \
+EHAL/BLUE\ LED \
 EHAL/EEPROM \
+EHAL/GREEN\ LED \
+EHAL/YELLOW\ LED \
 MCAL/DIO \
 MCAL/I2C \
 MCAL/SPI \

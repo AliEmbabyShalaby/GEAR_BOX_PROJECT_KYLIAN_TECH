@@ -11,7 +11,10 @@ RM := rm -rf
 -include MCAL/SPI/subdir.mk
 -include MCAL/I2C/subdir.mk
 -include MCAL/DIO/subdir.mk
+-include EHAL/YELLOW\ LED/subdir.mk
+-include EHAL/GREEN\ LED/subdir.mk
 -include EHAL/EEPROM/subdir.mk
+-include EHAL/BLUE\ LED/subdir.mk
 -include subdir.mk
 -include objects.mk
 

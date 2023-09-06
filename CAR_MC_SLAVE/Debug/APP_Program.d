@@ -1,5 +1,4 @@
-main.o main.o: ../main.c ../main.h \
-  C:\Users\aliae\eclipse-workspace\CAR_MC_SLAVE/APP_Interface.h \
+APP_Program.o APP_Program.o: ../APP_Program.c ../APP_Interface.h \
   C:\Users\aliae\eclipse-workspace\CAR_MC_SLAVE\MCAL\Configrations/CPU_Configuration.h \
   C:\Users\aliae\eclipse-workspace\CAR_MC_SLAVE\MCAL\Configrations/STD_Types.h \
   C:\Users\aliae\eclipse-workspace\CAR_MC_SLAVE\MCAL\Configrations/BIT_MATH.h \
@@ -11,9 +10,7 @@ main.o main.o: ../main.c ../main.h \
   C:\Users\aliae\eclipse-workspace\CAR_MC_SLAVE\EHAL\GREEN\ LED/GREEN_LED_Private.h \
   C:\Users\aliae\eclipse-workspace\CAR_MC_SLAVE\EHAL\YELLOW\ LED/YELLOW_LED_Private.h
 
-../main.h:
-
-C:\Users\aliae\eclipse-workspace\CAR_MC_SLAVE/APP_Interface.h:
+../APP_Interface.h:
 
 C:\Users\aliae\eclipse-workspace\CAR_MC_SLAVE\MCAL\Configrations/CPU_Configuration.h:
 

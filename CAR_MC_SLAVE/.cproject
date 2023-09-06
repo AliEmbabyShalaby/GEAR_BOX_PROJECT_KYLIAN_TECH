@@ -37,6 +37,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/MCAL/I2C}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/MCAL/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/EEPROM}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/BLUE LED}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/GREEN LED}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/EHAL/YELLOW LED}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.compiler.winavr.input.624792586" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
 							</tool>
