@@ -28,9 +28,9 @@ The firmware follows a structured state machine design, with modules for initial
 
 - **User Interface**: An LCD display, keypad, LEDs, and a buzzer provide a user-friendly interface for mode selection and feedback.
 
-- **SPI Communication**: SPI is utilized for real-time data exchange between the master and slave kits, enabling dynamic control and synchronization.
+- **SPI Communication**: SPI is utilized for real-time data exchange between the master and slave kits, enabling the transfer of limit speed values.
 
-- **I2C Data Storage**: The slave kit employs I2C to store readings from the master kit in an external EEPROM, allowing for data persistence.
+- **I2C Data Storage**: The slave kit employs I2C to store readings from the master kit in an external EEPROM, allowing for data persistence even after power loss.
 
 ## Achievements and Future Enhancements
 
