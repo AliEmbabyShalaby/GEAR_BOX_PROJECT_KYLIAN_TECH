@@ -8,19 +8,28 @@
  */
 
 #include <APP_Interface.h>
+
 extern bool Parking_Flag, Reverse_Flag, Normal_Flag, Drive_Flag;
+
+bool Start_state_flag=TRUE;
 
 Master_Config My_Master = { SPI_INTERRUPT_DISABLE,
 SPI_MSB,
 SPI_RISING_LEADING,
 SPI_SAMPLE_LEADING,
 SPI_PRESCALER_4 };
-
+/*
+ * Function: Application_Initialize
+ * ------------------------------
+ * Description: Initializes the application components.
+ * Returns: ERROR_STATE - SUCCESS if initialization is successful, an error state otherwise.
+ */
 ERROR_STATE Application_Initialize() {
 	ERROR_STATE state_error = SUCCESS;
 	SPI_Init_Master(&My_Master);
 
 	LCD_Initialize();
+	LCD_Curser_OFF();
 	load_custom_characters();
 	KEYPAD_Initialize();
 	Speed_Analog_Initialize();
@@ -50,9 +59,18 @@ ERROR_STATE Application_Initialize() {
 
 	return state_error;
 }
-/*Super Loop Checks the flag of which state*/
+
+
+/*
+ * Function: MAIN_Application
+ * ------------------------------
+ * Description: Super Loop that checks the flags to determine the current state.
+ *              It selects and executes the appropriate state function based on the flags.
+ * Returns: ERROR_STATE - SUCCESS if the super loop executes successfully, an error state otherwise.
+ */
 ERROR_STATE MAIN_Application() {
 	ERROR_STATE state_error = SUCCESS;
+	/*This condition only for the first use to assure speed = 0*/
 	if (Parking_Flag) {
 		Parking_State();
 	} else {

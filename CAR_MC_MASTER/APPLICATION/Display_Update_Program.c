@@ -15,24 +15,23 @@ extern UINT8_t Mode_Selected;
 bool one_time_flag = TRUE;
 UINT8_t SPEED_LIMIT = 0;
 
-/*This the LCD HomePage
- * inputs:Status Mode
- * outputs:none*/
+/*
+ * Function: Main_LCD_Display
+ * ------------------------------
+ * Description: Displays information on the LCD home page based on the selected mode.
+ *              Shows current speed, speed limit status, and mode-specific indicators.
+ * Inputs:
+ *   - Mode: Status mode (Parking, Reverse, Normal, Drive)
+ * Outputs: None
+ */
 void Main_LCD_Display(MODES Mode) {
-	/*To remove negative sign while display the value.*/
-	UINT16_t Current_Speed_Positive = 0;
-	if (Current_Speed < 0) {
-		Current_Speed_Positive = Current_Speed * (-1);
-	} else {
-		Current_Speed_Positive = Current_Speed;
-	}
 	LCD_Curser_OFF();
 	LCD_LINE_position(0, 0);
 	LCD_Write_String("SPEED:");
 	LCD_LINE_position(0, 6);
 	LCD_Write_String("   ");
 	LCD_LINE_position(0, 6);
-	LCD_Write_Number(Current_Speed_Positive);
+	LCD_Write_Number(Current_Speed);
 	if (Limit_Flag) {
 		LCD_LINE_position(0, 10);
 		LCD_Write_String("!LIM");
@@ -80,23 +79,25 @@ void Main_LCD_Display(MODES Mode) {
 		break;
 	}
 }
-/*This function Calculates Current speed value from potentiometer VR1
- * and average 30 readings
- * inputs:pointer to address that stored current speed to it.
- * outputs:none
- * */
+/*
+ * Function: Current_Speed_value
+ * ------------------------------
+ * Description: Calculates the current speed value from potentiometer VR1 by averaging 20 readings.
+ * Inputs:
+ *   - Speed: Pointer to the address where the current speed value will be stored.
+ * Outputs: None
+ */
 void Current_Speed_value(SINT16_t *Speed) {
 	UINT16_t speed_adj = 0;
 	SINT16_t speed_val = 0;
 
-	for (int i = 0; i < 30; i++) {
+	for (int i = 0; i < 20; i++) {
 		Speed_Analog_Read(&speed_adj);
-		speed_val += ((speed_adj / 2) - 262);
+		speed_val += speed_adj;
 	}
-	speed_val /= 30;
-	/*Limit negative speed to -30*/
-	if (speed_val < (-30)) {
-		speed_val = -30;
+	speed_val = (((speed_val / 20) / 4) - 12);
+	if (speed_val < 0) {
+		speed_val = 0;
 	}
 	if (Limit_Flag) {
 		/*SPI read UPDATE*/
@@ -107,40 +108,41 @@ void Current_Speed_value(SINT16_t *Speed) {
 			SPEED_LIMIT = Master_Receive();
 			one_time_flag = FALSE;
 		}
-
 		if (speed_val > SPEED_LIMIT) {
-			speed_val = (SPEED_LIMIT);
-		}
-		if ((speed_val) < (SPEED_LIMIT) * (-1)) {
-			speed_val = (SPEED_LIMIT) * (-1);
+			speed_val = SPEED_LIMIT;
 		}
 	} else {
 		one_time_flag = TRUE;
 	}
 	*Speed = speed_val;
 }
-/*This function Toggles Speed Limit
- * inputs:none
- * outputs:none
- * */
+/*
+ * Function: TGL_Limit_Speed
+ * ------------------------------
+ * Description: Toggles the Speed Limit feature on or off.
+ * Inputs: None
+ * Outputs: None
+ */
 void TGL_Limit_Speed() {
-	if (Current_Speed == 0) {
-		LCD_Clear();
-		LCD_LINE_position(0, 1);
-		if (Limit_Flag) {
-			LCD_Write_String("LIMIT SPEED OFF");
-		} else {
-			LCD_Write_String("LIMIT SPEED ON");
-		}
-		Limit_Flag ^= TRUE;
-		Current_Speed_value(&Current_Speed);
-		_delay_ms(1250);
+	LCD_Clear();
+	LCD_LINE_position(0, 1);
+	if (Limit_Flag) {
+		LCD_Write_String("LIMIT SPEED OFF");
+	} else {
+		LCD_Write_String("LIMIT SPEED ON");
 	}
+	Limit_Flag ^= TRUE;
+	Current_Speed_value(&Current_Speed);
+	_delay_ms(1250);
 }
-/*This function Setting Speed Limit Value by taking average of 20 VR2 readings and store it
- * inputs:none
- * outputs:none
- * */
+
+/*
+ * Function: SET_LIMIT_SPEED
+ * ------------------------------
+ * Description: Sets the Speed Limit Value by taking an average of 20 VR2 readings and storing it.
+ * Inputs: None
+ * Outputs: None
+ */
 void SET_LIMIT_SPEED() {
 	LCD_Clear();
 	LCD_LINE_position(0, 1);
@@ -149,7 +151,8 @@ void SET_LIMIT_SPEED() {
 	LCD_Write_String("TO SET VALUE");
 	LCD_LINE_position(2, 3);
 	LCD_Write_String("LIMIT SPEED:");
-	UINT16_t CURRENT_LIMIT_VALUE = 0, limit_avrg = 0;
+	UINT16_t CURRENT_LIMIT_VALUE = 0;
+	SINT16_t limit_avrg = 0;
 	KEYPAD_Read(&Mode_Selected);
 	while ((Mode_Selected != 'B')) {
 		/*BACK BUTTON ONLY CAN EXIT THSI LOOP TO STORE THE VALUE*/
@@ -164,24 +167,59 @@ void SET_LIMIT_SPEED() {
 		}
 		/*This calculation to limit Speed value from 1023 to 250*/
 		limit_avrg = (((limit_avrg / 20) - 24) / 4);
+		if (limit_avrg < 0) {
+			limit_avrg = 0;
+		}
 		LCD_Write_Number(limit_avrg);
 
 		LCD_LINE_position(3, 13);
 		LCD_Write_Character(0x7F);
-		_delay_ms(100);
+		_delay_ms(150);
 	}
-	/*SPI WRITE to Store to eeprom*/
-	UINT8_t Limit_Speed_Value = 0;
-	Limit_Speed_Value = (UINT8_t) limit_avrg;
-	Master_Send(Limit_Speed_Value);
-	_delay_ms(200);
-
+    // SPI WRITE to store the speed limit value to EEPROM
+    UINT8_t Limit_Speed_Value = 0;
+    Limit_Speed_Value = (UINT8_t) limit_avrg;
+    Master_Send(Limit_Speed_Value); // Send the speed limit value to store
+    _delay_ms(200); // Delay for EEPROM write operation
 
 }
-/*This function Display LETTERS IN ART
- * inputs:none
- * outputs:none
- * */
+
+/*
+ * Function: Check_Speed_State
+ * ------------------------------
+ * Description: Checks and prompts the user to adjust VR1 (SPEED) to zero.
+ *              Monitors the current speed value and waits until it reaches zero.
+ * Inputs: None
+ * Outputs: None
+ */
+void Check_Speed_State(){
+	LCD_Clear();
+	LCD_LINE_position(0, 4);
+	LCD_Write_String("!! ERROR !!");
+	LCD_LINE_position(1, 1);
+	LCD_Write_String("ADJUST VR1(SPEED)");
+	LCD_LINE_position(2, 6);
+	LCD_Write_String("TO ZERO");
+	Current_Speed_value(&Current_Speed);
+	while (Current_Speed != 0) {
+		LCD_LINE_position(3, 7);
+		LCD_Write_String("      ");
+		LCD_LINE_position(3, 8);
+		LCD_Write_Number(Current_Speed);
+		Current_Speed_value(&Current_Speed);
+		_delay_ms(150);
+	}
+	LCD_Clear();
+}
+
+/*
+ * Function: Display_Letter
+ * ------------------------------
+ * Description: Displays letters in an art-style on the LCD based on the provided letter.
+ * Inputs:
+ *   - letter: The letter to be displayed (P, R, N, D)
+ * Outputs: None
+ */
 void Display_Letter(Letters letter) {
 	switch (letter) {
 	case P:

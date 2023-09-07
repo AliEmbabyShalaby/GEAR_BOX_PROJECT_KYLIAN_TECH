@@ -40,6 +40,7 @@ void Current_Speed_value(SINT16_t *Speed);
 void Main_LCD_Display(MODES Mode) ;
 void TGL_Limit_Speed(void);
 void SET_LIMIT_SPEED(void);
+void Check_Speed_State(void);
 void Display_Letter(Letters letter);
 
 #endif /* DISPLAY_UPDATE_INTERFACE_H_ */
