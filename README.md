@@ -36,12 +36,12 @@ The firmware follows a structured state machine design, with modules for initial
 
 This project successfully achieves its educational goals by providing a practical platform for learning embedded systems programming and advanced communication protocols. Future enhancements may include more realistic features like real motor and feeback, advanced control logic, and expanded user interaction.
 
-### VIDEO
+## VIDEO
 [GEAR_BOX_PROJECT_KYLIAN_TECH_VIDEO](https://drive.google.com/drive/folders/1RCm6VRdVJYAezsVQ2AgYu9lMLa8dWphe?usp=drive_link)
 
 
-### Team Members :
-#### Ali Embaby    980
-#### Seif Shebl    894
-#### Ahmed Nasr    1069
-#### Azza Saeed    912
+## Team Members :
+### Ali Embaby    980
+### Seif Shebl    894
+### Ahmed Nasr    1069
+### Azza Saeed    912
