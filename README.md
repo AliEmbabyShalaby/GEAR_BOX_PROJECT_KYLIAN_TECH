@@ -40,7 +40,7 @@ This project successfully achieves its educational goals by providing a practica
 [GEAR_BOX_PROJECT_KYLIAN_TECH_VIDEO](https://drive.google.com/drive/folders/1RCm6VRdVJYAezsVQ2AgYu9lMLa8dWphe?usp=drive_link)
 
 
-## Team Members :
+## Team Members 
 ### Ali Embaby    980
 ### Seif Shebl    894
 ### Ahmed Nasr    1069
