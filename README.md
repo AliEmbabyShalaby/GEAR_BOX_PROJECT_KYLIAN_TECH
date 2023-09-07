@@ -1,8 +1,4 @@
-Certainly, here's an updated project summary that includes the information about linking FARES kits with SPI communication and using one kit as a master and the other as a slave with I2C to store readings in EEPROM:
-
----
-
-# Project Summary: Gearbox Embedded C
+# Gearbox Embedded C Project Documentation
 
 ## Overview
 
